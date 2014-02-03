@@ -1,0 +1,38 @@
+{% macro create(comment) -%}
+    <div class="thing comment">
+        <div class="entry unvoted">
+            <div class="collapsed" style="display: none">
+                <a href="#" class="expand">[+]</a>
+                <a href="http://www.reddit.com/user/{{ comment.author }}" class="author gray">{{ comment.author }}</a>
+                <span class="score unvoted">{{ comment.ups - comment.downs }} points</span>
+                <time title="Sun Feb 2 23:04:52 2014 UTC" datetime="2014-02-02T23:04:52+00:00">9 hours</time> ago &nbsp;
+                <a href="#" class="expand" onclick="return showcomment(this)">(8 children)</a>
+            </div>
+            <div class="noncollapsed" style="display: block">
+                <p class="tagline">
+                    <a href="#" class="expand">[–]</a>
+                    <a href="http://www.reddit.com/user/{{ comment.author }}" class="author">{{ comment.author }}</a>
+                    <span class="score unvoted">{{ comment.ups - comment.downs }} points</span>
+                    <time title="Sun Feb 2 23:04:52 2014 UTC" datetime="2014-02-02T23:04:52+00:00">9 hours</time> ago
+                </p>
+
+                <div class="usertext-body">
+                    {{ comment.body_html|safe }}
+                </div>
+
+                <ul class="flat-list buttons">
+                    <li class="first">
+                        <a href="{{ comment.permalink }}" class="bylink" rel="nofollow">permalink</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="child" style="display: block">
+            <div class="sitetable listing">
+                {% for child in comment.replies %}
+                    {{ create(child) }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{%- endmacro  %}

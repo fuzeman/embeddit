@@ -1,0 +1,2 @@
+flask
+https://github.com/fuzeman/rlib/zipball/master#egg=rlib
