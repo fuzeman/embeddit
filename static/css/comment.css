@@ -1,0 +1,42 @@
+.comment .collapsed {
+    font-size: x-small;
+    color: gray;
+    font-style: italic;
+    padding-bottom: 10px;
+}
+
+    .comment .collapsed a {
+        color: gray;
+    }
+
+.comment .author {
+    font-weight: bold;
+}
+
+.comment .expand {
+    font-style: normal;
+    margin-left: 0;
+    margin-right: 3px;
+    padding: 1px;
+}
+
+.comment .child, .comment .showreplies {
+    margin-top: 10px;
+    margin-left: 3px;
+    border-left: 1px dotted #DDF;
+}
+
+.comment .expand:hover {
+    text-decoration: none;
+    color: white;
+    background-color: #369;
+}
+
+.listing {
+    margin-left: 15px;
+}
+
+.usertext.border .usertext-body {
+    background-color: #ffc;
+    padding-left: 5px;
+}

@@ -1,17 +1,17 @@
-{% macro create(comment) -%}
+{% macro create(comment, is_child=False) -%}
     <div class="thing comment">
         <div class="entry unvoted">
             <div class="collapsed" style="display: none">
                 <a href="#" class="expand">[+]</a>
-                <a href="http://www.reddit.com/user/{{ comment.author }}" class="author gray">{{ comment.author }}</a>
+                <a href="http://www.reddit.com/user/{{ comment.author }}" target="_blank" class="author gray">{{ comment.author }}</a>
                 <span class="score unvoted">{{ comment.ups - comment.downs }} points</span>
                 <time title="Sun Feb 2 23:04:52 2014 UTC" datetime="2014-02-02T23:04:52+00:00">9 hours</time> ago &nbsp;
-                <a href="#" class="expand" onclick="return showcomment(this)">(8 children)</a>
+                <a href="#" class="expand">({{ comment.replies|length }} {% if (comment.replies|length) == 1 %}child{% else %}children{% endif %})</a>
             </div>
-            <div class="noncollapsed" style="display: block">
+            <div class="noncollapsed usertext {% if not is_child %}border{% endif %}" style="display: block">
                 <p class="tagline">
                     <a href="#" class="expand">[–]</a>
-                    <a href="http://www.reddit.com/user/{{ comment.author }}" class="author">{{ comment.author }}</a>
+                    <a href="http://www.reddit.com/user/{{ comment.author }}" target="_blank" class="author">{{ comment.author }}</a>
                     <span class="score unvoted">{{ comment.ups - comment.downs }} points</span>
                     <time title="Sun Feb 2 23:04:52 2014 UTC" datetime="2014-02-02T23:04:52+00:00">9 hours</time> ago
                 </p>
@@ -22,7 +22,7 @@
 
                 <ul class="flat-list buttons">
                     <li class="first">
-                        <a href="{{ comment.permalink }}" class="bylink" rel="nofollow">permalink</a>
+                        <a href="{{ comment.permalink }}" target="_blank" class="bylink" rel="nofollow">permalink</a>
                     </li>
                 </ul>
             </div>
@@ -30,7 +30,7 @@
         <div class="child" style="display: block">
             <div class="sitetable listing">
                 {% for child in comment.replies %}
-                    {{ create(child) }}
+                    {{ create(child, is_child=True) }}
                 {% endfor %}
             </div>
         </div>

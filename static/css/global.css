@@ -1,0 +1,50 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td, iframe {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font: normal x-small verdana, arial, helvetica, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #369;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+.domain {
+    color: #888;
+    font-size: x-small;
+    white-space: nowrap;
+}
+
+    .domain a {
+        color: #888;
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        vertical-align: middle;
+        max-width: 19em;
+    }
+
+    .domain a:hover {
+        text-decoration: underline;
+        max-width: none;
+    }
+
+a.author {
+    margin-right: 0.5em;
+}
+
+.separator {
+    margin-bottom: 10px;
+
+    border: none;
+    border-bottom: 1px dotted gray;
+}

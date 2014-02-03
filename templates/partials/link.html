@@ -1,4 +1,4 @@
-{% macro create(link) -%}
+{% macro create(link, expanded=True) -%}
     <div id="siteTable" class="sitetable linklisting">
         <div class="thing link">
             <div class="midcol unvoted">
@@ -7,20 +7,40 @@
 
             <div class="entry unvoted">
                 <p class="title">
-                    <a class="title" href="{{ link.url }}" tabindex="1">{{ link.title }}</a>
-                    <span class="domain">(<a href="http://reddit.com/domain/{{ link.domain }}/">{{ link.domain }}</a>)</span>
+                    <a class="title" href="{{ link.url }}" target="_blank">{{ link.title }}</a>
+                    <span class="domain">(<a href="http://reddit.com/domain/{{ link.domain }}/" target="_blank">{{ link.domain }}</a>)</span>
                 </p>
+
+                {% if not expanded and link.selftext_html %}
+                    <div class="expando-button collapsed selftext"></div>
+                {% endif %}
 
                 <p class="tagline">
                     submitted <time title="Sun Feb 2 19:40:29 2014 UTC" datetime="2014-02-02T19:40:29+00:00">13 hours</time> ago
-                    by <a href="http://www.reddit.com/user/{{ link.author }}" class="author">{{ link.author }}</a>
+                    by <a href="http://www.reddit.com/user/{{ link.author }}" target="_blank" class="author">{{ link.author }}</a>
                 </p>
+
+                {% if expanded and link.selftext_html %}
+                    <div class="expando usertext">
+                        <div class="usertext-body">
+                            {{ link.selftext_html|safe }}
+                        </div>
+                    </div>
+                {% endif %}
 
                 <ul class="flat-list buttons">
                     <li class="first">
-                        <a class="comments" href="{{ link.permalink }}" target="_parent">{{ link.num_comments }} comments</a>
+                        <a class="comments" href="{{ link.permalink }}" target="_blank" target="_parent">{{ link.num_comments }} comments</a>
                     </li>
                 </ul>
+
+                {% if not expanded and link.selftext_html %}
+                    <div class="expando usertext" style="display: none;">
+                        <div class="usertext-body">
+                            {{ link.selftext_html|safe }}
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
