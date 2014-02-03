@@ -1,4 +1,4 @@
-from embedit import app
+from embeddit import app
 import os
 
 if __name__ == '__main__':
