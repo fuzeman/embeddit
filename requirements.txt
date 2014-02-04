@@ -1,2 +1,7 @@
 flask
+
+Flask-Assets
+jsmin
+cssmin
+
 https://github.com/fuzeman/rlib/zipball/master#egg=rlib

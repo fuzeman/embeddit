@@ -4,9 +4,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
-        <link rel="stylesheet" href="/static/css/global.css"/>
-        <link rel="stylesheet" href="/static/css/link.css"/>
-        <link rel="stylesheet" href="/static/css/comment.css"/>
+        {% assets "css_cl" %}
+            <link rel="stylesheet" href="{{ ASSET_URL }}"/>
+        {% endassets %}
     </head>
 
     <body>
@@ -18,11 +18,12 @@
             {{ par_comment.create(comment, expanded=False) }}
         </div>
 
-        <script type="text/javascript" src="/static/lib/jquery-2.1.0.min.js"></script>
-        <script type="text/javascript" src="/static/lib/moment.min.js"></script>
-        <script type="text/javascript" src="/static/lib/livestamp.min.js"></script>
+        {% assets "js_lib" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
 
-        <script type="text/javascript" src="/static/js/link.js"></script>
-        <script type="text/javascript" src="/static/js/comment.js"></script>
+        {% assets "js_cl" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
     </body>
 </html>

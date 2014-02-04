@@ -3,17 +3,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
-        <link rel="stylesheet" href="/static/css/global.css"/>
-        <link rel="stylesheet" href="/static/css/link.css"/>
+        {% assets "css_l" %}
+            <link rel="stylesheet" href="{{ ASSET_URL }}"/>
+        {% endassets %}
     </head>
 
     <body>
         {{ par_link.create(link) }}
 
-        <script type="text/javascript" src="/static/lib/jquery-2.1.0.min.js"></script>
-        <script type="text/javascript" src="/static/lib/moment.min.js"></script>
-        <script type="text/javascript" src="/static/lib/livestamp.min.js"></script>
+        {% assets "js_lib" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
 
-        <script type="text/javascript" src="/static/js/link.js"></script>
+        {% assets "js_l" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
     </body>
 </html>
