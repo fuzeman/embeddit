@@ -31,11 +31,11 @@
             <div class="child-expander">
                 <hr/>
                 <div class="wrapper">
-                    <span>show comments</span>
+                    <a href="#">more comments</a>
                 </div>
             </div>
         {% endif %}
-        <div class="child" style="display: {% if expanded %}block{% else %}none{% endif %}">
+        <div class="child {% if not expanded %}expander-collapsed{% endif %}" style="display: {% if expanded %}block{% else %}none{% endif %}">
             <div class="sitetable listing">
                 {% for child in comment.replies %}
                     {{ create(child, is_child=True, expanded=True) }}
