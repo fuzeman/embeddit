@@ -16,7 +16,7 @@
                 {% endif %}
 
                 <p class="tagline">
-                    submitted <time title="Sun Feb 2 19:40:29 2014 UTC" datetime="2014-02-02T19:40:29+00:00">13 hours</time> ago
+                    submitted <span data-livestamp="{{ link.created_utc.isoformat() }}-00:00"></span>
                     by <a href="http://www.reddit.com/user/{{ link.author }}" target="_blank" class="author">{{ link.author }}</a>
                 </p>
 
