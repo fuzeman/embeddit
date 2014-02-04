@@ -11,6 +11,8 @@ static_dir = os.path.join(base_dir, 'static')
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
 app.url_map.converters['regex'] = RegexConverter
+app.url_map.redirect_defaults = False
+app.url_map.strict_slashes = False
 
 # Setup Flask-Assets
 assets = Environment(app)
