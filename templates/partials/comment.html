@@ -1,4 +1,4 @@
-{% macro create(comment, is_child=False) -%}
+{% macro create(comment, is_child=False, expanded=True) -%}
     <div class="thing comment">
         <div class="entry unvoted">
             <div class="collapsed" style="display: none">
@@ -27,10 +27,18 @@
                 </ul>
             </div>
         </div>
-        <div class="child" style="display: block">
+        {% if not expanded %}
+            <div class="child-expander">
+                <hr/>
+                <div class="wrapper">
+                    <span>show comments</span>
+                </div>
+            </div>
+        {% endif %}
+        <div class="child" style="display: {% if expanded %}block{% else %}none{% endif %}">
             <div class="sitetable listing">
                 {% for child in comment.replies %}
-                    {{ create(child, is_child=True) }}
+                    {{ create(child, is_child=True, expanded=True) }}
                 {% endfor %}
             </div>
         </div>
