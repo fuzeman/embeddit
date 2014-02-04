@@ -7,3 +7,5 @@ $('.link .expando-button').on('click', function (){
         $(this).parent().find('.expando').hide();
     }
 });
+
+$('.link .usertext-body a').attr('target', '_blank');

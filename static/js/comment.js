@@ -41,3 +41,5 @@ $('.child-expander', $commentarea).click(function() {
         $child.show();
     }
 });
+
+$('.comment .usertext-body a').attr('target', '_blank');
