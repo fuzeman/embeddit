@@ -19,6 +19,7 @@ assets = Environment(app)
 
 # JS Library Bundle
 js_lib = Bundle(
+    'lib/iframeResizer.contentWindow.min.js',
     'lib/jquery-2.1.0.min.js',
     'lib/moment.min.js',
     'lib/livestamp.min.js',
