@@ -8,8 +8,13 @@ h = HTMLParser.HTMLParser()
 reddit = Reddit()
 
 
-def build_url(domain, fragments):
-    return 'http://%s/%s' % (domain, '/'.join([x for x in fragments if x]) + '.json')
+def build_url(domain, fragments, limit=None):
+    url = 'http://%s/%s' % (domain, '/'.join([x for x in fragments if x]) + '.json')
+
+    if limit:
+        url += '?limit=%s' % limit
+
+    return url
 
 
 @app.route('/r/<subreddit>/comments/<link_id>/<slug>/<comment_id>', defaults={'domain': 'reddit.com'})
@@ -21,7 +26,7 @@ def view_comment(domain, subreddit, link_id, slug, comment_id):
         link_id,
         slug,
         comment_id
-    ])
+    ], limit=30)
 
     app.logger.info('Requesting "%s"' % url)
     link, comment = reddit.get_comment(url=url, include_link=True)

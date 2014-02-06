@@ -1,3 +1,7 @@
+.link {
+    margin-bottom: 8px;
+}
+
 .comment .collapsed {
     font-size: x-small;
     color: gray;
@@ -43,6 +47,8 @@
 
 .child-expander {
     position: relative;
+    height: 15px;
+
     margin-top: 10px;
 }
 
