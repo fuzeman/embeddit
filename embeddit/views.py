@@ -1,35 +1,18 @@
+from embeddit import app
 from flask import render_template
 from rlib import Reddit
-from embeddit import app
 import HTMLParser
 
 
 h = HTMLParser.HTMLParser()
-reddit = Reddit()
-
-
-def build_url(domain, fragments, limit=None):
-    url = 'http://%s/%s' % (domain, '/'.join([x for x in fragments if x]) + '.json')
-
-    if limit:
-        url += '?limit=%s' % limit
-
-    return url
+r = Reddit()
 
 
 @app.route('/r/<subreddit>/comments/<link_id>/<slug>/<comment_id>', defaults={'domain': 'reddit.com'})
 @app.route('/<domain>/r/<subreddit>/comments/<link_id>/<slug>/<comment_id>')
 @app.route('/<regex("\w+"):subreddit>.<domain>/comments/<link_id>/<slug>/<comment_id>')
 def view_comment(domain, subreddit, link_id, slug, comment_id):
-    url = build_url(domain, [
-        'r', subreddit, 'comments',
-        link_id,
-        slug,
-        comment_id
-    ], limit=30)
-
-    app.logger.info('Requesting "%s"' % url)
-    link, comment = reddit.get_comment(url=url, include_link=True)
+    comment, link = r.subreddit(subreddit, domain).comments(link_id, comment_id, include_link=True, limit=30)
 
     return render_template('comment.html', link=link, comment=comment)
 
@@ -41,14 +24,7 @@ def view_comment(domain, subreddit, link_id, slug, comment_id):
 @app.route('/<regex("\w+"):subreddit>.<domain>/comments/<link_id>', defaults={'domain': 'reddit.com', 'slug': None})
 @app.route('/<regex("\w+"):subreddit>.<domain>/comments/<link_id>/<slug>', defaults={'domain': 'reddit.com'})
 def view_link(domain, subreddit, link_id, slug):
-    url = build_url(domain, [
-        'r', subreddit, 'comments',
-        link_id,
-        slug
-    ])
-
-    app.logger.info('Requesting "%s"' % url)
-    link = reddit.get_link(url=url)
+    link = r.subreddit(subreddit, domain).link(link_id)
 
     return render_template('link.html', link=link)
 
@@ -57,4 +33,6 @@ def view_link(domain, subreddit, link_id, slug):
 @app.route('/<domain>/r/<subreddit>')
 @app.route('/<regex("\w+"):subreddit>.<domain>', defaults={'domain': 'reddit.com'})
 def view_subreddit(domain, subreddit):
-    return '/r/%s' % subreddit
+    sr = r.subreddit(subreddit, domain).about()
+
+    return render_template('subreddit.html', subreddit=sr)
