@@ -8,6 +8,11 @@ h = HTMLParser.HTMLParser()
 r = Reddit()
 
 
+@app.route('/favicon.ico')
+def static_pass():
+    return ''
+
+
 @app.route('/r/<subreddit>/comments/<link_id>/<slug>/<comment_id>', defaults={'domain': 'reddit.com'})
 @app.route('/<domain>/r/<subreddit>/comments/<link_id>/<slug>/<comment_id>')
 @app.route('/<regex("\w+"):subreddit>.<domain>/comments/<link_id>/<slug>/<comment_id>')
