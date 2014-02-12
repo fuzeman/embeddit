@@ -33,6 +33,9 @@ def view_link(domain, subreddit, link_id, slug):
 @app.route('/<domain>/r/<subreddit>')
 @app.route('/<regex("\w+"):subreddit>.<domain>', defaults={'domain': 'reddit.com'})
 def view_subreddit(domain, subreddit):
-    sr = r.subreddit(subreddit, domain).about()
+    return render_template(
+        'subreddit.html',
+        domain=domain,
 
-    return render_template('subreddit.html', subreddit=sr)
+        subreddit=r.subreddit(subreddit, domain).about()
+    )

@@ -1,0 +1,48 @@
+body {
+    background-color: #cee3f8;
+
+    font-size: 12px;
+}
+
+.left {
+    float: left;
+    margin-right: 8px;
+
+    padding: 5px 0 5px 5px;
+
+    border-right: 1px dotted black;
+}
+
+.right {
+    float: right;
+    margin-left: 5px;
+    margin-right: 5px;
+
+    font-size: 10px;
+    text-align: right;
+}
+
+.image {
+    max-height: 40px;
+}
+
+.name {
+    font-weight: bold;
+    margin-right: 1ex;
+    font-variant: small-caps;
+    font-size: 1.2em;
+    vertical-align: bottom;
+}
+
+    .name a {
+        color: black;
+    }
+
+.hover a:hover {
+    text-decoration: underline;
+}
+
+.description {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

@@ -1,1 +1,34 @@
-subreddit
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        {% assets "css_s" %}
+            <link rel="stylesheet" href="{{ ASSET_URL }}"/>
+        {% endassets %}
+    </head>
+
+    <body>
+        <div class="left">
+            {% if subreddit.header_size[1] <= 40 %}
+                <img class="image" src="{{ subreddit.header_img }}" width="{{ subreddit.header_size[0] }}" height="{{ subreddit.header_size[1] }}"/>
+            {% else %}
+                <img class="image" src="{{ subreddit.header_img }}" width="{{ subreddit.header_size[0] * (40 / subreddit.header_size[1]) }}" height="40"/>
+            {% endif %}
+
+            <span class="name hover">
+                <a href="http://{{ domain }}{{ subreddit.url }}" target="_blank" class="hover">{{ subreddit.display_name }}</a>
+            </span>
+        </div>
+
+        <div class="right">
+            <p class="users-online " title="logged-in users viewing this subreddit in the past 15 minutes">
+                <span class="number">{{ subreddit.accounts_active }}</span> <span class="word">users here now</span>
+            </p>
+
+            <span class="subscribers"><span class="number">{{ subreddit.subscribers }}</span> <span class="word">readers</span></span>
+        </div>
+
+        <div class="description">
+            <p>{{ subreddit.public_description }}</p>
+        </div>
+    </body>
+</html>

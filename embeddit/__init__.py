@@ -69,4 +69,14 @@ css_l = Bundle(
 )
 assets.register('css_l', css_l)
 
+# CSS Subreddit Bundle
+css_s = Bundle(
+    'css/global.css',
+    'css/subreddit.css',
+
+    filters='cssmin',
+    output='gen/css_s.css'
+)
+assets.register('css_s', css_s)
+
 import views
