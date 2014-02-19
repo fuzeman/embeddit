@@ -1,4 +1,4 @@
-{% macro create(comment, is_child=False, expanded=True) -%}
+{% macro create(comment, collapse=None, highlight_cid=None) -%}
     <div class="thing comment">
         <div class="entry unvoted">
             <div class="collapsed" style="display: none">
@@ -8,7 +8,7 @@
                 <span data-livestamp="{{ comment.created_utc.isoformat() }}-00:00"></span> &nbsp;
                 <a href="#" class="expand">({{ comment.replies|length }} {% if (comment.replies|length) == 1 %}child{% else %}children{% endif %})</a>
             </div>
-            <div class="noncollapsed usertext {% if not is_child %}border{% endif %}" style="display: block">
+            <div class="noncollapsed usertext {% if comment.id == highlight_cid %}border{% endif %}" style="display: block">
                 <p class="tagline">
                     <a href="#" class="expand">[–]</a>
                     <a href="http://www.reddit.com/user/{{ comment.author }}" target="_blank" class="author">{{ comment.author }}</a>
@@ -27,20 +27,22 @@
                 </ul>
             </div>
         </div>
-        {% if not expanded %}
-            <div class="child-expander">
-                <hr/>
-                <div class="wrapper">
-                    <a href="#">more comments</a>
+        {% with collapse = comment.id == highlight_cid %}
+            {% if collapse %}
+                <div class="child-expander">
+                    <hr/>
+                    <div class="wrapper">
+                        <a href="#">more comments</a>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="child {% if collapse %}expander-collapsed{% endif %}" style="display: {% if collapse %}none{% else %}block{% endif %}">
+                <div class="sitetable listing">
+                    {% for child in comment.replies %}
+                        {{ create(child, collapse=False, highlight_cid=highlight_cid) }}
+                    {% endfor %}
                 </div>
             </div>
-        {% endif %}
-        <div class="child {% if not expanded %}expander-collapsed{% endif %}" style="display: {% if expanded %}block{% else %}none{% endif %}">
-            <div class="sitetable listing">
-                {% for child in comment.replies %}
-                    {{ create(child, is_child=True, expanded=True) }}
-                {% endfor %}
-            </div>
-        </div>
+        {% endwith %}
     </div>
 {%- endmacro  %}

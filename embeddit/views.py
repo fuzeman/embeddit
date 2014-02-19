@@ -1,5 +1,5 @@
 from embeddit import app
-from flask import render_template
+from flask import render_template, request
 from rlib import Reddit
 import HTMLParser
 
@@ -17,9 +17,14 @@ def static_pass():
 @app.route('/<domain>/r/<subreddit>/comments/<link_id>/<slug>/<comment_id>')
 @app.route('/<regex("\w+"):subreddit>.<domain>/comments/<link_id>/<slug>/<comment_id>')
 def view_comment(domain, subreddit, link_id, slug, comment_id):
-    comment, link = r.subreddit(subreddit, domain).comments(link_id, comment_id, include_link=True, limit=30)
+    comment, link = r.subreddit(subreddit, domain).comments(
+        link_id, comment_id,
+        include_link=True,
+        limit=30,
+        context=request.args.get('context', 1)
+    )
 
-    return render_template('comment.html', link=link, comment=comment)
+    return render_template('comment.html', link=link, comment=comment, highlight_cid=comment_id)
 
 
 @app.route('/r/<subreddit>/comments/<link_id>', defaults={'domain': 'reddit.com', 'slug': None})
