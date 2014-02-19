@@ -1,9 +1,9 @@
-{% macro create(comment, collapse=None, highlight_cid=None) -%}
+{% macro create(comment, link=None, collapse=None, highlight_cid=None) -%}
     <div class="thing comment">
         <div class="entry unvoted">
             <div class="collapsed" style="display: none">
                 <a href="#" class="expand">[+]</a>
-                <a href="http://www.reddit.com/user/{{ comment.author }}" target="_blank" class="author gray">{{ comment.author }}</a>
+                <a href="http://www.reddit.com/user/{{ comment.author }}" target="_blank" class="author {% if comment.author == link.author %}submitter {% endif %}gray">{{ comment.author }}</a>
                 <span class="score unvoted">{{ comment.ups - comment.downs }} points</span>
                 <span data-livestamp="{{ comment.created_utc.isoformat() }}-00:00"></span> &nbsp;
                 <a href="#" class="expand">({{ comment.replies|length }} {% if (comment.replies|length) == 1 %}child{% else %}children{% endif %})</a>
@@ -11,7 +11,7 @@
             <div class="noncollapsed usertext {% if comment.id == highlight_cid %}border{% endif %}" style="display: block">
                 <p class="tagline">
                     <a href="#" class="expand">[–]</a>
-                    <a href="http://www.reddit.com/user/{{ comment.author }}" target="_blank" class="author">{{ comment.author }}</a>
+                    <a href="http://www.reddit.com/user/{{ comment.author }}" target="_blank" class="author {% if comment.author == link.author %}submitter {% endif %}">{{ comment.author }}</a>
                     <span class="score unvoted">{{ comment.ups - comment.downs }} points</span>
                     <span data-livestamp="{{ comment.created_utc.isoformat() }}-00:00"></span>
                 </p>
@@ -39,7 +39,7 @@
             <div class="child {% if collapse %}expander-collapsed{% endif %}" style="display: {% if collapse %}none{% else %}block{% endif %}">
                 <div class="sitetable listing">
                     {% for child in comment.replies %}
-                        {{ create(child, collapse=False, highlight_cid=highlight_cid) }}
+                        {{ create(child, link, collapse=False, highlight_cid=highlight_cid) }}
                     {% endfor %}
                 </div>
             </div>

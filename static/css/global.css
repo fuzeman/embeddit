@@ -50,3 +50,15 @@ a.author {
     border: none;
     border-bottom: 1px dotted gray;
 }
+
+.tagline .submitter {
+    color: #0055DF;
+}
+
+.thing .tagline .author.submitter {
+    color: white !important;
+    font-weight: bold;
+    padding: 0px 2px;
+    border-radius: 3px;
+    background-color: rgb(0, 85, 223) !important;
+}
