@@ -5,7 +5,7 @@ import HTMLParser
 
 
 h = HTMLParser.HTMLParser()
-r = Reddit()
+r = Reddit(use_https=False)
 
 
 @app.route('/favicon.ico')
